@@ -27,6 +27,9 @@ docker_prune: false
 docker_auth: ""
 docker_auth_registry: "https://index.docker.io/v1/"
 
+# prevent docker from creating rules in iptables raw table?
+docker_insecure_no_iptables_raw: false
+
 ## versions
 docker_version:
 docker_buildx_version:
