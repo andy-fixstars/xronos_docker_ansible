@@ -24,6 +24,6 @@
 - name: Restart docker service
   when: docker_insecure_no_iptables_raw
   become: true
-  ansible.builtin.service:
+  ansible.builtin.systemd_service:
     name: docker
-    state: "{{ daemon_file.changed | ternary('restarted', 'started') }}"
+    state: restarted
