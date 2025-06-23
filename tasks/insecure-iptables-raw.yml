@@ -1,6 +1,7 @@
 ---
 - name: Check for kernel config iptable_raw
   ansible.builtin.shell: lsmod | grep iptable_raw
+  ignore_errors: true
   register: iptable_raw
 
 - name: Create a docker.service override directory
