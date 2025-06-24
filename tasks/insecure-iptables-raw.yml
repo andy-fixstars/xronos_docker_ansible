@@ -5,7 +5,7 @@
   register: iptable_raw
 
 - name: Create a docker.service override directory
-  when: iptable_raw
+  when: iptable_raw.rc == 1
   become: true
   ansible.builtin.file:
     owner: root
@@ -15,7 +15,7 @@
     state: directory
 
 - name: Set up docker.service override
-  when: iptable_raw
+  when: iptable_raw.rc == 1
   become: true
   community.general.ini_file:
     dest: /etc/systemd/system/docker.service.d/insecure_no_iptables_raw_override.conf
@@ -27,8 +27,9 @@
     value: "DOCKER_INSECURE_NO_IPTABLES_RAW=1"
 
 - name: Restart docker service
-  when: iptable_raw
+  when: iptable_raw.rc == 1
   become: true
   ansible.builtin.systemd_service:
     name: docker
     state: restarted
+    daemon_reload: true
