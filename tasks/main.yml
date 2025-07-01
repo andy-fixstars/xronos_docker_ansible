@@ -16,6 +16,9 @@
 - name: Install docker engine
   ansible.builtin.import_tasks: docker-ce.yml
 
+- name: Prevent docker from creating rule in iptables raw table
+  ansible.builtin.import_tasks: insecure-iptables-raw.yml
+
 - name: Configure docker for multiarch building
   when: docker_multiarch
   ansible.builtin.include_tasks: multiarch.yml
